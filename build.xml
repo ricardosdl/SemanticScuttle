@@ -10,7 +10,7 @@
   <property file="html.properties" />
 
   <property name="version-m"  value="0.98" />
-  <property name="version"    value="0.98.3" />
+  <property name="version"    value="0.98.X" />
   <property name="stability"  value="beta" />
   <property name="releasenotes" value="
 - Fix bug #3388456: Missing scripts/fix-unfiled-tags.php
@@ -20,8 +20,10 @@ contained it - thus no 0.98.3 PEAR package.
 " />
   <property name="zipfile"     value="${phing.project.name}-${version}.zip" />
   <property name="pkgfile"     value="${phing.project.name}-${version}.tgz" />
+  <property name="pharfile"    value="${phing.project.name}-${version}.phar" />
   <property name="distfile"    value="dist/${zipfile}" />
   <property name="distpkgfile" value="dist/pear/${pkgfile}" />
+  <property name="pharfilepath" value="dist/${pharfile}" />
   <property name="sfproject"   value="SemanticScuttle" />
   <property name="sffilepath"  value="s/se/semanticscuttle/" />
   <property name="svnpath"     value="https://semanticscuttle.svn.sourceforge.net/svnroot/semanticscuttle/" />
@@ -259,6 +261,30 @@ contained it - thus no 0.98.3 PEAR package.
    <move file="${pkgfile}" todir="dist/pear/" />
 
    <delete file="package.xml" failonerror="true" />
+  </target>
+
+
+
+  <target name="phar" depends="check"
+   description="Create .phar file for release"
+   >
+    <echo msg="Creating .phar for SemanticScuttle ${version}"/>
+    <pharpackage basedir="." destfile="${pharfilepath}"
+     alias="sc.phar"
+     webstub="www/index.php"
+     clistub="www/index.php"
+    >
+     <metadata>
+      <element name="version" value="${version}" />
+      <element name="authors">
+       <element name="Christian Weiske">
+        <element name="e-mail" value="cweiske@cweiske.de" />
+       </element>
+      </element>
+     </metadata>
+
+     <fileset refid="fs.zip"/>
+    </pharpackage>
   </target>
 
 
