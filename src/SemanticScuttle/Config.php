@@ -50,6 +50,35 @@ class SemanticScuttle_Config
         return $datadir;
     }
 
+    /**
+     * Creates an array with file paths where the configuration
+     * file may be located.
+     *
+     * @return array Array of possible configuration file paths.
+     */
+    public function getPossibleConfigFiles()
+    {
+        if (isset($_SERVER['HTTP_HOST'])) {
+            //use basename to prevent path injection
+            $host = basename($_SERVER['HTTP_HOST']);
+        } else {
+            $host = 'cli';
+        }
+        $datadir = $this->getDataDir();
+        $arFiles = array();
+
+        if (class_exists('Phar') && Phar::running(false) != '') {
+            $arFiles[] = Phar::running(false) . '.config.php';
+        }
+
+        $arFiles[] = $datadir . 'config.' . $host . '.php';
+        $arFiles[] = '/etc/semanticscuttle/config.' . $host . '.php';
+        $arFiles[] = $datadir . 'config.php';
+        $arFiles[] = '/etc/semanticscuttle/config.php';
+
+        return $arFiles;
+    }
+
 
 
     /**
@@ -68,20 +97,8 @@ class SemanticScuttle_Config
      */
     public function findFiles()
     {
-        if (isset($_SERVER['HTTP_HOST'])) {
-            //use basename to prevent path injection
-            $host = basename($_SERVER['HTTP_HOST']);
-        } else {
-            $host = 'cli';
-        }
         $datadir = $this->getDataDir();
-
-        $arFiles = array(
-            $datadir . 'config.' . $host . '.php',
-            '/etc/semanticscuttle/config.' . $host . '.php',
-            $datadir . 'config.php',
-            '/etc/semanticscuttle/config.php',
-        );
+        $arFiles = $this->getPossibleConfigFiles();
 
         $configfile = null;
         foreach ($arFiles as $file) {
