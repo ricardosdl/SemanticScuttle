@@ -269,6 +269,7 @@ contained it - thus no 0.98.3 PEAR package.
    description="Create .phar file for release"
    >
     <echo msg="Creating .phar for SemanticScuttle ${version}"/>
+    <delete file="${pharfilepath}" quiet="yes"/>
     <pharpackage basedir="." destfile="${pharfilepath}"
      alias="sc.phar"
      stub="res/phar-stub.php">
