@@ -29,6 +29,11 @@ class SemanticScuttle_Environment
      */
     public static function getServerPathInfo()
     {
+        if (isset($_SERVER['PHAR_PATH_TRANSLATED'])
+            && '/' . $_SERVER['SCRIPT_NAME'] == $_SERVER['PATH_INFO']
+        ) {
+            return null;
+        }
         /* old code that does not work today.
            if you find that this code helps you, tell us
            and send us the output of var_export($_SERVER);
@@ -46,7 +51,11 @@ class SemanticScuttle_Environment
         }
         */
 
-        return $_SERVER['PATH_INFO'];
+        if (isset($_SERVER['PATH_INFO'])) {
+            return $_SERVER['PATH_INFO'];
+        }
+
+        return null;
     }
 
 

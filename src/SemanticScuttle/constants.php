@@ -48,5 +48,5 @@ define('PAGE_WATCHLIST', "watchlist");
 define('INSTALLATION_ID', md5($GLOBALS['dbname'].$GLOBALS['tableprefix']));
 
 //currently not needed
-//$_SERVER['PATH_INFO'] = SemanticScuttle_Environment::getServerPathInfo();
+$_SERVER['PATH_INFO'] = SemanticScuttle_Environment::getServerPathInfo();
 ?>
