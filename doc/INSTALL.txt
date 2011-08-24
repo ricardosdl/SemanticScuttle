@@ -13,13 +13,17 @@ To run SemanticScuttle, you need:
 
 Installation instructions
 =========================
+If you downloaded the ``.phar`` file, follow the `Phar setup instructions`__.
+Otherwise continue here:
+
+__ install-phar.html
+
+
 1. Create a new MySQL database
 2. Import ``data/tables.sql`` into that database, i.e.
    run ::
 
-   $ mysql -umyusername semanticscuttle < data/tables.sql
-
-   on the shell ("semanticscuttle" being the database name)
+   $ mysql -umyusername mydatabase < data/tables.sql
 
 3. Copy ``data/config.php.dist`` to ``data/config.php`` and modify it as
    necessary. See configuration_ for more information.
