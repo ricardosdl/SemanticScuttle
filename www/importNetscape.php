@@ -72,7 +72,7 @@ if ($userservice->isLoggedOn() && sizeof($_FILES) > 0 && $_FILES['userfile']['si
 			$att = preg_split('/\s*=\s*/s', $attribute, 2);
 			$attrTitle = $att[0];
 
-			$attrVal = eregi_replace('"', '&quot;', preg_replace('/([\'"]?)(.*)\1/', '$2', $att[1]));
+			$attrVal = preg_replace('/"/i', '&quot', preg_replace('/([\'"]?)(.*)\1/', '$2', $att[1]));
 
 			switch ($attrTitle) {
 				case "HREF":
