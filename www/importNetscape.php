@@ -67,6 +67,7 @@ if ($userservice->isLoggedOn() && sizeof($_FILES) > 0 && $_FILES['userfile']['si
 
 		$bDatetime = ""; //bDateTime optional
 		$bCategories = ""; //bCategories optional
+		$bPrivateNote = ""; //bPrivateNote optional
 
 		foreach ($attributes[0] as $attribute) {
 			$att = preg_split('/\s*=\s*/s', $attribute, 2);
