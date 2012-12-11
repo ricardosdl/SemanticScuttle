@@ -667,5 +667,15 @@ class Bookmark2TagTest extends TestBase
         $this->assertContains(array('tag' => 'usertag1', 'bCount' => '1'), $arTags);
         $this->assertContains(array('tag' => 'usable', 'bCount' => '2'), $arTags);
     }
+    
+    public function testHasTag() {
+        $bid = $this->addBookmark(null, null, 0, array('foo'));
+        
+        $this->assertTrue($this->b2ts->hasTag($bid, 'foo'));
+        //this test is because we are using the utf8_general_ci encoding,
+        //which removes all accents
+        $this->assertTrue($this->b2ts->hasTag($bid, 'fóo'));
+        
+    }
 }
 ?>

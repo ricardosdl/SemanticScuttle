@@ -627,13 +627,14 @@ class SemanticScuttle_Service_Bookmark2Tag extends SemanticScuttle_DbService
             message_die(GENERAL_ERROR, 'Could not find tag', '', __LINE__, __FILE__, $query, $this->db);
             return false;
         }
-
+        
+        $output = false;
         if ($row =& $this->db->sql_fetchrow($dbresult)) {
             if ($row['tCount'] > 0) {
                 $output = true;
             }
         }
-        $output = false;
+        
         $this->db->sql_freeresult($dbresult);
         return $output;
     }
